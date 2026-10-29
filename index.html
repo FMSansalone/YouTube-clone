@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Youtube - Web Prep</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+      body {
+        display: flex;
+        margin: 0;
+        height: 100vh;
+        font-family: "Roboto", sans-serif;
+      }
+
+      .main {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .topbar {
+        height: 8vh;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 24px 24px;
+      }
+
+      .icon {
+        height: 8vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0 2em;
+        cursor: pointer;
+      }
+
+      .icon ion-icon {
+        font-size: 2em;
+      }
+
+      .icon p {
+        margin: 0;
+        font-size: 12px;
+      }
+
+      .icon:not(:first-of-type) {
+        height: 16vh;
+      }
+
+      .logo {
+        height: 50%;
+      }
+
+      .search-wrapper {
+        display: flex;
+        height: 50%;
+        width: 30%;
+      }
+
+      .search-wrapper input {
+        width: 100%;
+        padding: 0 1em;
+      }
+
+      .icons-wrapper {
+        display: flex;
+        align-items: center;
+      }
+
+      .top-icon {
+        font-size: 2em;
+        padding: 0 0.5em;
+      }
+
+      .mic-icon {
+        display: flex;
+        align-items: center;
+      }
+
+      .search-btn {
+        padding: 0 0.7em;
+        font-size: 1.3em;
+        display: flex;
+        align-items: center;
+      }
+
+      .chips {
+        display: flex;
+        gap: 12px;
+        padding: 12px 0;
+        overflow-x: auto;
+      }
+
+      .chip {
+        border: none;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background-color: #f2f2f2;
+        font-family: inherit;
+        font-size: 14px;
+        white-space: nowrap;
+        cursor: pointer;
+      }
+
+      .chip.active {
+        background-color: #0f0f0f;
+        color: white;
+      }
+
+      .video-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px 16px;
+        padding-top: 12px;
+      }
+
+      .video-card {
+        width: calc((100% - 48px) / 4);
+        cursor: pointer;
+      }
+
+      .thumbnail {
+        position: relative;
+      }
+
+      .thumbnail img {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        border-radius: 12px;
+        display: block;
+      }
+
+      .duration {
+        position: absolute;
+        right: 8px;
+        bottom: 8px;
+        padding: 2px 4px;
+        border-radius: 4px;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        font-size: 12px;
+      }
+
+      .video-info {
+        display: flex;
+        gap: 12px;
+        margin-top: 12px;
+      }
+
+      .channel-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      .video-title {
+        margin: 0 0 4px;
+        font-size: 16px;
+        line-height: 1.4;
+        color: #0f0f0f;
+      }
+
+      .channel-name,
+      .video-meta {
+        margin: 0;
+        font-size: 14px;
+        color: #606060;
+      }
+
+      @media (max-width: 1200px) {
+        .video-card {
+          width: calc((100% - 32px) / 3);
+        }
+      }
+
+      @media (max-width: 900px) {
+        .video-card {
+          width: calc((100% - 16px) / 2);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .video-card {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="icon">
+        <ion-icon name="menu-sharp"></ion-icon>
+      </div>
+      <div class="icon">
+        <ion-icon name="home-outline"></ion-icon>
+        <p>Home</p>
+      </div>
+      <div class="icon">
+        <ion-icon name="compass-outline"></ion-icon>
+        <p>Explore</p>
+      </div>
+      <div class="icon">
+        <ion-icon name="albums-outline"></ion-icon>
+        <p>Library</p>
+      </div>
+    </div>
+    <div class="main">
+      <div class="topbar">
+        <img class="logo" src="assets/yt-logo.svg" alt="yt-logo" />
+        <div class="search-wrapper">
+          <input type="text" placeholder="Search on YouTube" />
+          <button class="search-btn">
+            <ion-icon name="search"></ion-icon>
+          </button>
+          <div class="top-icon mic-icon">
+            <ion-icon name="mic-sharp"></ion-icon>
+          </div>
+        </div>
+        <div class="icons-wrapper">
+          <div class="top-icon">
+            <ion-icon name="videocam-outline"></ion-icon>
+          </div>
+          <div class="top-icon">
+            <ion-icon name="notifications-outline"></ion-icon>
+          </div>
+          <div class="top-icon">
+            <ion-icon name="person-circle-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="chips">
+          <button class="chip active">Tutti</button>
+          <button class="chip">HTML</button>
+          <button class="chip">CSS</button>
+          <button class="chip">Flexbox</button>
+          <button class="chip">Python</button>
+          <button class="chip">Machine Learning</button>
+          <button class="chip">Data Science</button>
+          <button class="chip">GitHub</button>
+        </div>
+        <div class="video-grid">
+          <div class="video-card">
+            <div class="thumbnail">
+              <img src="assets/epicode_thumb.png" alt="Introduzione a HTML: la struttura di una pagina web" />
+              <span class="duration">12:34</span>
+            </div>
+            <div class="video-info">
+              <img class="channel-avatar" src="assets/epicode-logo.png" alt="EPICODE" />
+              <div class="video-text">
+                <h3 class="video-title">Introduzione a HTML: la struttura di una pagina web</h3>
+                <p class="channel-name">EPICODE</p>
+                <p class="video-meta">12K visualizzazioni • 2 settimane fa</p>
+              </div>
+            </div>
+          </div>
+          <div class="video-card">
+            <div class="thumbnail">
+              <img src="assets/epicode_thumb.png" alt="CSS Basics: selettori, colori e font" />
+              <span class="duration">18:02</span>
+            </div>
+            <div class="video-info">
+              <img class="channel-avatar" src="assets/epicode-logo.png" alt="EPICODE" />
+              <div class="video-text">
+                <h3 class="video-title">CSS Basics: selettori, colori e font</h3>
+                <p class="channel-name">EPICODE</p>
+                <p class="video-meta">8,4K visualizzazioni • 2 settimane fa</p>
+              </div>
+            </div>
+          </div>
+          <div class="video-card">
+            <div class="thumbnail">
+              <img src="assets/epicode_thumb.png" alt="Flexbox spiegato semplice" />
+              <span class="duration">24:15</span>
+            </div>
+            <div class="video-info">
+              <img class="channel-avatar" src="assets/epicode-logo.png" alt="EPICODE" />
+              <div class="video-text">
+                <h3 class="video-title">Flexbox spiegato semplice</h3>
+                <p class="channel-name">EPICODE</p>
+                <p class="video-meta">21K visualizzazioni • 1 settimana fa</p>
+              </div>
+            </div>
+          </div>
+          <div class="video-card">
+            <div class="thumbnail">
+              <img src="assets/epicode_thumb.png" alt="Box model: margin, padding e border" />
+              <span class="duration">15:47</span>
+            </div>
+            <div class="video-info">
+              <img class="channel-avatar" src="assets/epicode-logo.png" alt="EPICODE" />
+              <div class="video-text">
+                <h3 class="video-title">Box model: margin, padding e border</h3>
+                <p class="channel-name">EPICODE</p>
+                <p class="video-meta">6,1K visualizzazioni • 1 settimana fa</p>
+              </div>
+            </div>
+          </div>
+          <div class="video-card">
+            <div class="thumbnail">
+              <img src="assets/epicode_thumb.png" alt="Come pubblicare un sito con GitHub Pages" />
+              <span class="duration">09:21</span>
+            </div>
+            <div class="video-info">
+              <img class="channel-avatar" src="assets/epicode-logo.png" alt="EPICODE" />
+              <div class="video-text">
+                <h3 class="video-title">Come pubblicare un sito con GitHub Pages</h3>
+                <p class="channel-name">EPICODE</p>
+                <p class="video-meta">9,8K visualizzazioni • 5 giorni fa</p>
+              </div>
+            </div>
+          </div>
+          <div class="video-card">
+            <div class="thumbnail">
+              <img src="assets/epicode_thumb.png" alt="Python da zero: variabili e tipi di dato" />
+              <span class="duration">31:08</span>
+            </div>
+            <div class="video-info">
+              <img class="channel-avatar" src="assets/epicode-logo.png" alt="EPICODE" />
+              <div class="video-text">
+                <h3 class="video-title">Python da zero: variabili e tipi di dato</h3>
+                <p class="channel-name">EPICODE</p>
+                <p class="video-meta">15K visualizzazioni • 4 giorni fa</p>
+              </div>
+            </div>
+          </div>
+          <div class="video-card">
+            <div class="thumbnail">
+              <img src="assets/epicode_thumb.png" alt="Le liste in Python: guida completa" />
+              <span class="duration">22:40</span>
+            </div>
+            <div class="video-info">
+              <img class="channel-avatar" src="assets/epicode-logo.png" alt="EPICODE" />
+              <div class="video-text">
+                <h3 class="video-title">Le liste in Python: guida completa</h3>
+                <p class="channel-name">EPICODE</p>
+                <p class="video-meta">7,3K visualizzazioni • 3 giorni fa</p>
+              </div>
+            </div>
+          </div>
+          <div class="video-card">
+            <div class="thumbnail">
+              <img src="assets/epicode_thumb.png" alt="Cicli for e while in Python" />
+              <span class="duration">19:55</span>
+            </div>
+            <div class="video-info">
+              <img class="channel-avatar" src="assets/epicode-logo.png" alt="EPICODE" />
+              <div class="video-text">
+                <h3 class="video-title">Cicli for e while in Python</h3>
+                <p class="channel-name">EPICODE</p>
+                <p class="video-meta">5,9K visualizzazioni • 2 giorni fa</p>
+              </div>
+            </div>
+          </div>
+          <div class="video-card">
+            <div class="thumbnail">
+              <img src="assets/epicode_thumb.png" alt="Funzioni in Python: parametri e return" />
+              <span class="duration">27:12</span>
+            </div>
+            <div class="video-info">
+              <img class="channel-avatar" src="assets/epicode-logo.png" alt="EPICODE" />
+              <div class="video-text">
+                <h3 class="video-title">Funzioni in Python: parametri e return</h3>
+                <p class="channel-name">EPICODE</p>
+                <p class="video-meta">4,2K visualizzazioni • 1 giorno fa</p>
+              </div>
+            </div>
+          </div>
+          <div class="video-card">
+            <div class="thumbnail">
+              <img src="assets/epicode_thumb.png" alt="Introduzione al Machine Learning" />
+              <span class="duration">45:30</span>
+            </div>
+            <div class="video-info">
+              <img class="channel-avatar" src="assets/epicode-logo.png" alt="EPICODE" />
+              <div class="video-text">
+                <h3 class="video-title">Introduzione al Machine Learning</h3>
+                <p class="channel-name">EPICODE</p>
+                <p class="video-meta">32K visualizzazioni • 1 giorno fa</p>
+              </div>
+            </div>
+          </div>
+          <div class="video-card">
+            <div class="thumbnail">
+              <img src="assets/epicode_thumb.png" alt="Pandas per l'analisi dei dati" />
+              <span class="duration">38:16</span>
+            </div>
+            <div class="video-info">
+              <img class="channel-avatar" src="assets/epicode-logo.png" alt="EPICODE" />
+              <div class="video-text">
+                <h3 class="video-title">Pandas per l'analisi dei dati</h3>
+                <p class="channel-name">EPICODE</p>
+                <p class="video-meta">11K visualizzazioni • 20 ore fa</p>
+              </div>
+            </div>
+          </div>
+          <div class="video-card">
+            <div class="thumbnail">
+              <img src="assets/epicode_thumb.png" alt="Il tuo primo modello con scikit-learn" />
+              <span class="duration">29:03</span>
+            </div>
+            <div class="video-info">
+              <img class="channel-avatar" src="assets/epicode-logo.png" alt="EPICODE" />
+              <div class="video-text">
+                <h3 class="video-title">Il tuo primo modello con scikit-learn</h3>
+                <p class="channel-name">EPICODE</p>
+                <p class="video-meta">3,5K visualizzazioni • 8 ore fa</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>
